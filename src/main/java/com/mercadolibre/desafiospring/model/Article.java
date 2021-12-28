@@ -1,13 +1,17 @@
 package com.mercadolibre.desafiospring.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
 @Builder
-public class Produto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Article {
 
     private long productId;
     String name;
