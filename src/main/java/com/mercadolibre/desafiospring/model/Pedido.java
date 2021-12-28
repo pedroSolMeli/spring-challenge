@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class Pedido {
 
-    List<Produto> produtos;
+    List<Produto> products;
     BigDecimal total;
 
 }
