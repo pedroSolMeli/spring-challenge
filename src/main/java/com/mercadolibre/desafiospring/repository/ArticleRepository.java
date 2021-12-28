@@ -1,6 +1,7 @@
 package com.mercadolibre.desafiospring.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.utils.FileUtils;
 import org.springframework.stereotype.Repository;
 
