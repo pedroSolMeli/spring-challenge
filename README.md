@@ -1,2 +1,2 @@
-# desafio1-spring
+# spring-challenge
 Projeto do desafio Java + Spring
