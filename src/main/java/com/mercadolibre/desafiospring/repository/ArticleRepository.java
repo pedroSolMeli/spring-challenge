@@ -1,16 +1,17 @@
 package com.mercadolibre.desafiospring.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.utils.FileUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Filter;
+import java.util.stream.Stream;
 
 @Repository
 public class ArticleRepository {
@@ -20,7 +21,11 @@ public class ArticleRepository {
     private static FileUtils fileUtils = new FileUtils();
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static Article createArticle(Article article) {
+    private long defaultProductIdValue = 0;
+    private String defaultNameValue = "";
+
+
+    public Article createArticle(Article article) {
         try {
             articles.add(article);
             fileUtils.writeFile(PATH, articles);
@@ -30,7 +35,7 @@ public class ArticleRepository {
         return article;
     }
 
-    public static List<Article> getArticles() {
+    public List<Article> getArticles() {
         try {
             String jsonString = FileUtils.GetJsonBodyMock(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
@@ -40,11 +45,16 @@ public class ArticleRepository {
         return articles;
     }
 
-    public static List<Article> getFilteredArticles() {
-
-        articles = getArticles();
-        List<Article> filteredArticles = articles;
-        return filteredArticles;
+    public List<Article> getFilteredArticles() {
+        return null;
     }
 
+    public static void main(String[] args) {
+        ArticleRepository articleRepository = new ArticleRepository();
+
+        articleRepository.createArticle(Article.builder().name("teste").build());
+        System.out.println(articleRepository.getArticles().toString());
+
+    }
 }
+
