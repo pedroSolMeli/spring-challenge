@@ -53,17 +53,15 @@ public class FilterUtils {
         return baseValue == compareValue;
     }
 
-
     public boolean filterByQueryParams(Object inputQueryParams, Object baseObjValues) {
         Map<String, Object> queryParamsAsMap = convertObjectToMap(inputQueryParams);
         Map<String, Object> baseObjValuesAsMap = convertObjectToMap(baseObjValues);
 
-        return queryParamsAsMap.entrySet()
+       return queryParamsAsMap.entrySet()
                 .stream()
                 .filter(entry -> Objects.nonNull(entry.getValue()))
-                .allMatch(entry -> filterSearchInputMap.get(entry.getKey())
-                        .apply(entry.getValue(), baseObjValuesAsMap.get(entry.getKey()))
-                );
+                .anyMatch(entry -> filterSearchInputMap.get(entry.getKey())
+                        .apply(entry.getValue(), baseObjValuesAsMap.get(entry.getKey())));
     }
 
     public Map<String, Object> convertObjectToMap(Object object) {

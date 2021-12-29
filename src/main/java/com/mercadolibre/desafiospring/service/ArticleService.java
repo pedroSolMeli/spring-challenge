@@ -34,6 +34,7 @@ public class ArticleService {
                 .stream()
                 .filter(article -> filterUtils.filterByQueryParams(filterSearchInputDTO, article))
                 .collect(Collectors.toList());
+
         return listFilterResults;
     }
 
