@@ -14,12 +14,12 @@ import java.math.BigDecimal;
 public class Article {
 
     private long productId;
-    String name;
-    String category;
-    String brand;
-    BigDecimal price;
-    int quantity;
-    boolean freeShipping;
-    String prestige;
+    private String name;
+    private String category;
+    private String brand;
+    private BigDecimal price;
+    private int quantity;
+    private boolean freeShipping;
+    private String prestige;
 
 }

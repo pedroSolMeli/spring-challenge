@@ -17,6 +17,11 @@ public class ArticleService {
     @Autowired
     private ArticleRepository repository;
 
+    //Cria um article
+    public Article createArticle(Article article){
+        return repository.createArticle(article);
+    }
+
     //Busca todos Articles em uma lista
     public List<Article> findAll() {
         return repository.getArticles();
@@ -31,11 +36,6 @@ public class ArticleService {
     public List<Article> findArticleAnyCategory(){
         //TODO
         return null;
-    }
-
-    //Cria um article
-    public Article createArticle(Article article){
-        return repository.createArticle(article);
     }
 
     //Busca em ordem alfabetica
@@ -58,12 +58,18 @@ public class ArticleService {
     public List<Article> findPrice(){
         List<Article> articlePrice = repository.getArticles();
 
-        //articlePrice.sort(Comparator.comparing(Article::getPrice));
-        articlePrice.sort(Comparator.reverseOrder(Article::getPrice));
+        articlePrice.sort(Comparator.comparing(Article::getPrice));
 
         return articlePrice;
     }
 
+    //Busca o preço do menor para o maior
+    public List<Article> findPriceReverse(){
+        List<Article> articlePrice = repository.getArticles();
 
+        articlePrice.sort(Comparator.comparing(Article::getPrice).reversed());
+
+        return articlePrice;
+    }
 
 }
