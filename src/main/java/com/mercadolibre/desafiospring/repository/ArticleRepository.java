@@ -15,7 +15,6 @@ import java.util.List;
 public class ArticleRepository {
 
     private static List<Article> articles = new ArrayList<>();
-    private static List<Object> articlesObject = new ArrayList<>();
     private static final String PATH = "src/main/resources/articles.json";
     private static FileUtils fileUtils = new FileUtils();
 
@@ -43,16 +42,6 @@ public class ArticleRepository {
             e.printStackTrace();
         }
         return articles;
-    }
-
-    public static List<Object> getArticlesObject() {
-        try {
-            String jsonString = FileUtils.GetJsonBodyMock(PATH);
-            articlesObject = Arrays.asList(objectMapper.readValue(jsonString, Object[].class));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return articlesObject;
     }
 
     public static List<Article> getFilteredArticles() {
