@@ -25,11 +25,11 @@ public class FilterUtils {
                 && compareValue.toLowerCase().contains(baseValue.toLowerCase());
     }
 
-    public static boolean equalsIgnoreCase(Object argBase, Object argCompare) {
-        String baseValue = (String) argBase;
-        String compareValue = (String) argCompare;
+    public static boolean equalsLong(Object argBase, Object argCompare) {
+        Long baseValue = (Long) argBase;
+        Long compareValue = (Long) argCompare;
 
-        return Objects.nonNull(baseValue) && baseValue.equalsIgnoreCase(compareValue);
+        return baseValue.equals(compareValue);
     }
 
     public static boolean equalsInteger(Object argBase, Object argCompare) {

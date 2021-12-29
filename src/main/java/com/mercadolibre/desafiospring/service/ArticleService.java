@@ -28,38 +28,13 @@ public class ArticleService {
     FilterUtils filterUtils;
 
     public List<Article> getAllFiltersSearch(FilterSearchInputDTO filterSearchInputDTO) {
-
-        List<Article> filters = articleRepository.getArticles();
-
-        List<Article> listResults = listParseFilterResults(filters);
+        List<Article> listResults = articleRepository.getArticles();
 
         List<Article> listFilterResults = listResults
                 .stream()
-                .filter(filterOutputDTO -> filterUtils.filterByQueryParams(filterSearchInputDTO, filterOutputDTO))
+                .filter(article -> filterUtils.filterByQueryParams(filterSearchInputDTO, article))
                 .collect(Collectors.toList());
         return listFilterResults;
-    }
-
-    private List<Article> listParseFilterResults(List<Article> filters) {
-        List<Article> listResults = new ArrayList<>();
-        for (Object filter : filters) {
-            try {
-                Map<String, Object> caseFilterAsMap = (Map<String, Object>) filter;
-                Article article = Article.builder()
-                        .productId((Long) caseFilterAsMap.get("productId"))
-                        .name((String) caseFilterAsMap.get("name"))
-                        .category((String) caseFilterAsMap.get("category"))
-                        .brand((String) caseFilterAsMap.get("brand"))
-                        .price((BigDecimal) caseFilterAsMap.get("price"))
-                        .productId((Integer) caseFilterAsMap.get("quantity"))
-                        .freeShipping((Boolean) caseFilterAsMap.get("freeShipping"))
-                        .build();
-                listResults.add(article);
-            } catch (ClassCastException e) {
-                log.warn(String.format("Error on getAllFilters parse: %s", filter.toString()), e);
-            }
-        }
-        return listResults;
     }
 
 }

@@ -1,11 +1,13 @@
 package com.mercadolibre.desafiospring.model;
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
@@ -13,16 +15,20 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonFilter("articleFilter")
+@Component
+@JsonInclude()
 public class Article {
 
-    private long productId;
+    @JsonProperty("productId")
+    private Long productId;
+    @JsonProperty("name")
     String name;
     String category;
     String brand;
     BigDecimal price;
-    int quantity;
-    boolean freeShipping;
+    Integer quantity;
+    @JsonProperty("freeShipping")
+    Boolean freeShipping;
     String prestige;
 
 }

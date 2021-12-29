@@ -10,7 +10,7 @@ import java.util.logging.Filter;
 public class FilterSearchInputMap extends HashMap<String, BiFunction<Object, Object, Boolean>> {
 
     public FilterSearchInputMap() {
-        put("productId", FilterUtils::equalsInteger);
+        put("productId", FilterUtils::equalsLong);
         put("name", FilterUtils::containsStringIgnoreCase);
         put("category", FilterUtils::containsStringIgnoreCase);
         put("brand", FilterUtils::containsStringIgnoreCase);

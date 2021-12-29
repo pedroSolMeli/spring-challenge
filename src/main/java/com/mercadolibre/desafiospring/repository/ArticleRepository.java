@@ -3,23 +3,19 @@ package com.mercadolibre.desafiospring.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.utils.FileUtils;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-<<<<<<< HEAD
-import java.util.stream.Stream;
-=======
->>>>>>> c9ff105d8e51043ae9ed1bd78771b13a61a19b2c
+
 
 @Repository
 public class ArticleRepository {
 
     private static List<Article> articles = new ArrayList<>();
+    private static List<Object> articlesObject = new ArrayList<>();
     private static final String PATH = "src/main/resources/articles.json";
     private static FileUtils fileUtils = new FileUtils();
 
@@ -39,7 +35,7 @@ public class ArticleRepository {
         return article;
     }
 
-    public List<Article> getArticles() {
+    public static List<Article> getArticles() {
         try {
             String jsonString = FileUtils.GetJsonBodyMock(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
@@ -49,23 +45,21 @@ public class ArticleRepository {
         return articles;
     }
 
-<<<<<<< HEAD
-    public List<Article> getFilteredArticles() {
-        return null;
-=======
+    public static List<Object> getArticlesObject() {
+        try {
+            String jsonString = FileUtils.GetJsonBodyMock(PATH);
+            articlesObject = Arrays.asList(objectMapper.readValue(jsonString, Object[].class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return articlesObject;
+    }
+
     public static List<Article> getFilteredArticles() {
         articles = getArticles();
         List<Article> filteredArticles = articles;
         return filteredArticles;
->>>>>>> c9ff105d8e51043ae9ed1bd78771b13a61a19b2c
     }
 
-    public static void main(String[] args) {
-        ArticleRepository articleRepository = new ArticleRepository();
-
-        articleRepository.createArticle(Article.builder().name("teste").build());
-        System.out.println(articleRepository.getArticles().toString());
-
-    }
 }
 
