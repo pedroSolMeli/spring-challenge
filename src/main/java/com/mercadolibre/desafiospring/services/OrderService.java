@@ -11,26 +11,40 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    @Autowired
-    OrderRepository repository;
+	@Autowired
+	OrderRepository repository;
 
-    public void findAll() {
-    }
+	public List<Order> findAll() {
+		// vamos fazer um diferente para pegar por id? ou só não vamos mandar com pegar
+		// 1?
 
-    public void createOrder(List<Article> listOrder) {
-        BigDecimal totalList = calculateTotal(listOrder);
-        //Order order = new Order(listOrder, totalList ) ;
-        //Order order = Order.builder().listaPratos(listaPratos).idMesa(idMesa).id(ID).total(totalPratos.get()).build();
-        Order order = Order.builder().products(listOrder).total(totalList).build();
-        repository.createOrder(order);
+		return repository.getOrders();
+	}
 
-    }
+	public BigDecimal createOrder(List<Article> listOrder) {
+		BigDecimal totalList = calculateTotal(listOrder);
+		Order order = Order.builder().products(listOrder).total(totalList).build();
+		repository.createOrder(order);
+		return totalList;
+	}
 
-    private BigDecimal calculateTotal(List<Article> listOrder) {
-        BigDecimal total = new BigDecimal("0.0");
-        for (Article article: listOrder ) {
-             total =total.add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
-        }
-        return  total;
-    }
+	private BigDecimal calculateTotal(List<Article> listOrder) {
+		BigDecimal total = new BigDecimal("0.0");
+		for (Article article : listOrder) {
+			total = total.add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
+		}
+		return total;
+	}
+
+	public void delete(Long id) {
+//		repository.deleteOrder(id);
+		
+	}
+
+	public Order update(Long id, Order order) {
+//		Order orderToUpdate = repository.findById(id);
+//		orderToUpdate = order;
+		return null;
+		
+	}
 }
