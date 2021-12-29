@@ -1,8 +1,7 @@
 package com.mercadolibre.desafiospring.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.mercadolibre.desafiospring.model.Article;
+import com.mercadolibre.desafiospring.model.Order;
 import com.mercadolibre.desafiospring.utils.FileUtils;
 import org.springframework.stereotype.Repository;
 
@@ -10,41 +9,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Filter;
 
 @Repository
-public class ArticleRepository {
+public class OrderRepository {
 
-    private static List<Article> articles = new ArrayList<>();
+    private static List<Order> orders = new ArrayList<>();
     private static final String PATH = "src/main/resources/articles.json";
     private static FileUtils fileUtils = new FileUtils();
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static Article createArticle(Article article) {
+    public static Order createOrder(Order order) {
         try {
-            articles.add(article);
-            fileUtils.writeFile(PATH, articles);
+            orders.add(order);
+            fileUtils.writeFile(PATH, orders);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return article;
+        return order;
     }
 
-    public static List<Article> getArticles() {
+    public static List<Order> getOrders() {
         try {
             String jsonString = FileUtils.GetJsonBodyMock(PATH);
-            articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
+            orders = Arrays.asList(objectMapper.readValue(jsonString, Order[].class));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return articles;
-    }
-
-    public static List<Article> getFilteredArticles() {
-
-        articles = getArticles();
-        List<Article> filteredArticles = articles;
-        return filteredArticles;
+        return orders;
     }
 
 }
