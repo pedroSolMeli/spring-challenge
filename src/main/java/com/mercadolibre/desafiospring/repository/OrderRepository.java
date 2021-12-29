@@ -18,7 +18,7 @@ public class OrderRepository {
     private static FileUtils fileUtils = new FileUtils();
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static Order createOrder(Order order) {
+    public Order createOrder(Order order) {
         try {
             orders.add(order);
             fileUtils.writeFile(PATH, orders);
@@ -28,7 +28,7 @@ public class OrderRepository {
         return order;
     }
 
-    public static List<Order> getOrders() {
+    public List<Order> getOrders() {
         try {
             String jsonString = FileUtils.GetJsonBodyMock(PATH);
             orders = Arrays.asList(objectMapper.readValue(jsonString, Order[].class));
