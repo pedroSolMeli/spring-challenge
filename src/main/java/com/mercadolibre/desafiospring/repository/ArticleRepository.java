@@ -19,7 +19,7 @@ public class ArticleRepository {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static Article createArticle(Article article) {
+    public Article createArticle(Article article) {
         try {
             articles.add(article);
             fileUtils.writeFile(PATH, articles);
@@ -29,7 +29,7 @@ public class ArticleRepository {
         return article;
     }
 
-    public static List<Article> getArticles() {
+    public List<Article> getArticles() {
         try {
             String jsonString = FileUtils.GetJsonBodyMock(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
@@ -39,7 +39,7 @@ public class ArticleRepository {
         return articles;
     }
 
-    public static List<Article> getFilteredArticles() {
+    public List<Article> getFilteredArticles() {
         articles = getArticles();
         List<Article> filteredArticles = articles;
         return filteredArticles;
