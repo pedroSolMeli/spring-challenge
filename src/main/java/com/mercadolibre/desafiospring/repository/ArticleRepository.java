@@ -1,7 +1,6 @@
 package com.mercadolibre.desafiospring.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.utils.FileUtils;
 import org.springframework.stereotype.Repository;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Filter;
 
 @Repository
 public class ArticleRepository {
@@ -18,6 +16,7 @@ public class ArticleRepository {
     private static List<Article> articles = new ArrayList<>();
     private static final String PATH = "src/main/resources/articles.json";
     private static FileUtils fileUtils = new FileUtils();
+
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     public static Article createArticle(Article article) {
@@ -41,7 +40,6 @@ public class ArticleRepository {
     }
 
     public static List<Article> getFilteredArticles() {
-
         articles = getArticles();
         List<Article> filteredArticles = articles;
         return filteredArticles;
