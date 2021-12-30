@@ -54,6 +54,8 @@ public class ArticleService {
                 .stream()
                 .filter(article -> filterUtils.filterByQueryParams(articleFilterDTO, article))
                 .collect(Collectors.toList());
+
+        //TODO - verificar ordenaçao aqui
         return listFilterResults;
     }
 
