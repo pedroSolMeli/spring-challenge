@@ -16,19 +16,17 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@JsonInclude()
 public class Article {
 
     @JsonProperty("productId")
     private Long productId;
-    @JsonProperty("name")
-    String name;
-    String category;
-    String brand;
-    BigDecimal price;
-    Integer quantity;
+    private String name;
+    private String category;
+    private String brand;
+    private BigDecimal price;
+    private Integer quantity;
     @JsonProperty("freeShipping")
-    Boolean freeShipping;
-    String prestige;
+    private Boolean freeShipping;
+    private String prestige;
 
 }
