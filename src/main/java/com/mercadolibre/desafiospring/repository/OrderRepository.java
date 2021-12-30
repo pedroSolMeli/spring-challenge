@@ -15,7 +15,7 @@ import java.util.List;
 public class OrderRepository {
 
     private static List<Order> orders = new ArrayList<>();
-    private static final String PATH = "src/main/resources/articles.json";
+    private static final String PATH = "src/main/resources/order.json";
     private static FileUtils fileUtils = new FileUtils();
     private static ObjectMapper objectMapper = new ObjectMapper();
 

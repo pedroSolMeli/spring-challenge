@@ -20,16 +20,14 @@ public class OrderController {
 	@Autowired
 	OrderService service;
 
-	@GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<?> find(@PathVariable long id) {
 		service.findAll();
 		return null;
 	}
 
-	@PostMapping(produces = APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<?> create(@RequestBody List<Article> listOrder) {
 		BigDecimal total = service.createOrder(listOrder);
@@ -37,16 +35,14 @@ public class OrderController {
 	}
 
 
-	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@PutMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void update(@PathVariable Long id, @RequestBody Order order) {
 		service.update(id, order);
 	}
 
 
-	@DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		service.delete(id);
