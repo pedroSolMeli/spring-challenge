@@ -17,17 +17,6 @@ public class ArticleController {
     @Autowired
     ArticleService service;
 
-//    @GetMapping(produces = APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    @ResponseStatus(code = HttpStatus.OK)
-//    public ResponseEntity<?> findAll(@RequestParam(required = false) Long productId,
-//                                     @RequestParam(required = false) String name, @RequestParam(required = false) String category,
-//                                     @RequestParam(required = false) String brand, @RequestParam(required = false) BigDecimal price,
-//                                     @RequestParam(required = false) int quantity, @RequestParam(required = false) Boolean freeShipping,
-//                                     @RequestParam(required = false) String prestige) {
-//        return null;
-//    }
-
     @GetMapping()
     public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO) {
         List<Article> articles = service.findArticlesByFilters(articleFilterDTO);
