@@ -3,6 +3,7 @@ package com.mercadolibre.desafiospring.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.desafiospring.model.Order;
 import com.mercadolibre.desafiospring.utils.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
