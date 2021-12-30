@@ -8,13 +8,16 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.List;
 
+import DTO.InputArticleDTO;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
 
-    private List<Article> products;
+	private Long id;
+	private List<Article> products;
     private BigDecimal total;
 
 }

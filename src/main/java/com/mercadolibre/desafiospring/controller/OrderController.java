@@ -1,10 +1,10 @@
 package com.mercadolibre.desafiospring.controller;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
-import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.model.Order;
 import com.mercadolibre.desafiospring.services.OrderService;
+
+import DTO.InputArticleDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/" + "v1/" + "order")
+//POST: /api/v1/purchase-request
 public class OrderController {
 
 	@Autowired
@@ -29,7 +30,7 @@ public class OrderController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<?> create(@RequestBody List<Article> listOrder) {
+	public ResponseEntity<?> create(@RequestBody List<InputArticleDTO> listOrder) {
 		BigDecimal total = service.createOrder(listOrder);
 		return ResponseEntity.ok(total);
 	}
