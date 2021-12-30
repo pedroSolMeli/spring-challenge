@@ -35,7 +35,7 @@ public class OrderService {
 			articleList.add(product);
 		}
 		BigDecimal totalList = calculateTotal(articleList);
-		Order order = Order.builder().products(articleList).total(totalList).build();
+		Order order = new Order(articleList, totalList);
 		return repository.createOrder(order);
 	}
 
