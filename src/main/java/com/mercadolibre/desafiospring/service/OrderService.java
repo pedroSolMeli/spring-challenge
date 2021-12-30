@@ -10,13 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OrderService {
 	@Autowired
 	OrderRepository repository;
-
+	@Autowired
+	ArticleService articleService;
 
 	public List<Order> findAll() {
 		// vamos fazer um diferente para pegar por id? ou só não vamos mandar com pegar
@@ -25,21 +27,24 @@ public class OrderService {
 		return repository.getOrders();
 	}
 
-	public BigDecimal createOrder(List<InputArticleDTO> listOrder) {
-		BigDecimal totalList = calculateTotal(listOrder);
-		Order order = Order.builder().products(InputArticleDTO.converteList(listOrder)).total(totalList).build();
-		repository.createOrder(order);
-		return totalList;
+	public Order createOrder(List<InputArticleDTO> listOrder) {
+		List<Article> articleList = new ArrayList<Article>();
+		for (InputArticleDTO inputArticleDTO : listOrder) {
+			Article product = articleService.findArticleById(inputArticleDTO.getProductId());
+			product.setQuantity(inputArticleDTO.getQuantity());
+			articleList.add(product);
+		}
+		BigDecimal totalList = calculateTotal(articleList);
+		Order order = Order.builder().products(articleList).total(totalList).build();
+		return repository.createOrder(order);
 	}
 
-	private BigDecimal calculateTotal(List<InputArticleDTO> listOrder) {
+
+
+	private BigDecimal calculateTotal(List<Article> listOrder) {
 		BigDecimal total = new BigDecimal("0.0");
-		for (InputArticleDTO article : listOrder) {			
-//			para um retorno de objeto pegar o preço:
-//			BigDecimal priceArticle = serviceArticle.findArticleById(article.getProductId()).getPrice();
-//			total = total.add(priceArticle.multiply(new BigDecimal(article.getQuantity())));
-									
-//			total = total.add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
+		for (Article article : listOrder) {			
+			total = total.add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
 		}
 		return total;
 	}

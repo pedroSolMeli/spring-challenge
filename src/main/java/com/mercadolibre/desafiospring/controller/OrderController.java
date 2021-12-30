@@ -31,8 +31,8 @@ public class OrderController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<?> create(@RequestBody List<InputArticleDTO> listOrder) {
-		BigDecimal total = service.createOrder(listOrder);
-		return ResponseEntity.ok(total);
+		Order order = service.createOrder(listOrder);
+		return ResponseEntity.ok(order);
 	}
 
 
