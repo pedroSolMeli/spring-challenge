@@ -21,9 +21,6 @@ public class OrderService {
 	ArticleService articleService;
 
 	public List<Order> findAll() {
-		// vamos fazer um diferente para pegar por id? ou só não vamos mandar com pegar
-		// 1?
-
 		return repository.getOrders();
 	}
 
@@ -49,17 +46,17 @@ public class OrderService {
 		return total;
 	}
 
-	public void delete(Long id) {
-//		repository.deleteOrder(id);
-		
-	}
-
-	public Order update(Long id, Order order) {
-//		Order orderToUpdate = repository.findById(id);
-//		orderToUpdate = order;
-		return null;
-		
-	}
+//	public void delete(Long id) {
+////		repository.deleteOrder(id);
+//		
+//	}
+//
+//	public Order update(Long id, Order order) {
+////		Order orderToUpdate = repository.findById(id);
+////		orderToUpdate = order;
+//		return null;
+//		
+//	}
 
 	
 }

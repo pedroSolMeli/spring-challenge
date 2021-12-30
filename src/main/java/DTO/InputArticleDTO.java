@@ -24,7 +24,6 @@ public class InputArticleDTO {
 	public static Article converte(InputArticleDTO dto) {
 		Article article = Article.builder().brand(dto.getBrand()).name(dto.getBrand()).productId(dto.getProductId())
 				.build();
-
 		return article;
 	}
 

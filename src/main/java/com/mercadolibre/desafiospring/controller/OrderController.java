@@ -21,11 +21,11 @@ public class OrderController {
 	@Autowired
 	OrderService service;
 
-	@GetMapping(value = "/{id}")
+	@GetMapping()
 	@ResponseStatus(code = HttpStatus.OK)
-	public ResponseEntity<?> find(@PathVariable long id) {
-		service.findAll();
-		return null;
+	public ResponseEntity<?> find() {
+		List<Order> listOrders = service.findAll();
+		return ResponseEntity.ok(listOrders);
 	}
 
 	@PostMapping
@@ -36,17 +36,17 @@ public class OrderController {
 	}
 
 
-	@PutMapping(value = "/{id}")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @RequestBody Order order) {
-		service.update(id, order);
-	}
-
-
-	@DeleteMapping(value = "/{id}")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
-		service.delete(id);
-	}
+//	@PutMapping(value = "/{id}")
+//	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+//	public void update(@PathVariable Long id, @RequestBody Order order) {
+//		service.update(id, order);
+//	}
+//
+//
+//	@DeleteMapping(value = "/{id}")
+//	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+//	public void delete(@PathVariable Long id) {
+//		service.delete(id);
+//	}
 
 }

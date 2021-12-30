@@ -1,12 +1,17 @@
 package com.mercadolibre.desafiospring.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {	
 	
 	private Long id;
@@ -26,10 +31,5 @@ public class Order {
     	Random rand = new Random();
         return rand.nextLong();
     }
-
-
-
-
-
 
 }
