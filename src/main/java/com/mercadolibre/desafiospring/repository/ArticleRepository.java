@@ -1,28 +1,30 @@
 package com.mercadolibre.desafiospring.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.utils.FileUtils;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
 public class ArticleRepository {
 
-    private static List<Article> articles = new ArrayList<>();
-    private static final String PATH = "src/main/resources/articles.json";
-    private static FileUtils fileUtils = new FileUtils();
+    private List<Article> articles = new ArrayList<Article>();
+    private final String PATH = "src/main/resources/articles.json";
+    private FileUtils fileUtils = new FileUtils();
 
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
     public Article createArticle(Article article) {
         try {
+            articles = getArticles();
             articles.add(article);
             fileUtils.writeFile(PATH, articles);
         } catch (IOException e) {
@@ -33,7 +35,7 @@ public class ArticleRepository {
 
     public Article update(Long id, Article article) {
         try {
-            if (!getArticleById(id).equals(null)){
+            if (!getArticleById(id).equals(null)) {
                 article.setProductId(id);
                 int index = articles.indexOf(getArticleById(id));
                 articles.set(index, article);
@@ -48,7 +50,7 @@ public class ArticleRepository {
 
     public void delete(Long id) {
         try {
-            if (!getArticleById(id).equals(null)){
+            if (!getArticleById(id).equals(null)) {
                 List<Article> collect = articles.stream().filter(a -> !a.getProductId().equals(id)).collect(Collectors.toList());
 
                 fileUtils.writeFile(PATH, collect);
@@ -59,16 +61,22 @@ public class ArticleRepository {
     }
 
     public List<Article> getArticles() {
+        List<Article> result = new ArrayList<Article>();
         try {
             String jsonString = FileUtils.GetFileToString(PATH);
-            articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
+            Article[] arrArticle = objectMapper.readValue(jsonString, Article[].class);
+
+            for (int i = 0; i < arrArticle.length; i++) {
+                result.add(arrArticle[i]);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return articles;
+        return result;
     }
 
-    public Article getArticleById(Long productId){
+    public Article getArticleById(Long productId) {
         Article article = null;
         try {
             String jsonString = FileUtils.GetFileToString(PATH);

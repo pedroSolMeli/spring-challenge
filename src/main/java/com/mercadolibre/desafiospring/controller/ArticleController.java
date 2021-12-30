@@ -37,8 +37,8 @@ public class ArticleController {
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public  ResponseEntity<?> create(@RequestBody Article article) {
-
-		return null;
+		Article result = service.createArticle(article);
+		return ResponseEntity.ok(result);
 	}
 
 	@PutMapping(value = "/{id}")
