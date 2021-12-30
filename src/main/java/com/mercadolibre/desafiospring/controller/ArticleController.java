@@ -26,8 +26,8 @@ public class ArticleController {
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public  ResponseEntity<?> create(@RequestBody Article article) {
-		Article returnArticle = service.createArticle(article);
-		return ResponseEntity.ok(returnArticle);
+		Article result = service.createArticle(article);
+		return ResponseEntity.ok(result);
 	}
 
 	@PutMapping(value = "/{id}")
