@@ -20,10 +20,6 @@ public class ArticleRepository {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    private long defaultProductIdValue = 0;
-    private String defaultNameValue = "";
-
-
     public Article createArticle(Article article) {
         try {
             articles.add(article);
@@ -34,9 +30,9 @@ public class ArticleRepository {
         return article;
     }
 
-    public static List<Article> getArticles() {
+    public List<Article> getArticles() {
         try {
-            String jsonString = FileUtils.GetJsonBodyMock(PATH);
+            String jsonString = FileUtils.GetFileToString(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,10 +40,16 @@ public class ArticleRepository {
         return articles;
     }
 
-    public static List<Article> getFilteredArticles() {
-        articles = getArticles();
-        List<Article> filteredArticles = articles;
-        return filteredArticles;
+    public Article getArticleById(Long productId){
+        Article article = null;
+        try {
+            String jsonString = FileUtils.GetFileToString(PATH);
+            articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
+             article = articles.stream().filter(a -> a.getProductId() == productId).findFirst().orElse(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return article;
     }
 
 }
