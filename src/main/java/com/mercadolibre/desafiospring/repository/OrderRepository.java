@@ -31,7 +31,7 @@ public class OrderRepository {
 
     public List<Order> getOrders() {
         try {
-            String jsonString = FileUtils.GetJsonBodyMock(PATH);
+            String jsonString = FileUtils.GetFileToString(PATH);
             orders = Arrays.asList(objectMapper.readValue(jsonString, Order[].class));
         } catch (IOException e) {
             e.printStackTrace();
