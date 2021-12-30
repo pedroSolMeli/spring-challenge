@@ -1,7 +1,7 @@
 package com.mercadolibre.desafiospring.controller;
 
 import com.mercadolibre.desafiospring.model.Order;
-import com.mercadolibre.desafiospring.services.OrderService;
+import com.mercadolibre.desafiospring.service.OrderService;
 
 import DTO.InputArticleDTO;
 
