@@ -6,17 +6,16 @@ import com.mercadolibre.desafiospring.dto.ArticleFilterDTO;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/" + "v1/" + "articles")
 public class ArticleController {
 
     @Autowired
-    ArticleService articleService;
+    ArticleService service;
 
 //    @GetMapping(produces = APPLICATION_JSON_VALUE)
 //    @ResponseBody
@@ -31,34 +30,31 @@ public class ArticleController {
 
     @GetMapping()
     public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO) {
-        List<Article> articles = articleService.getArticlesByFilters(articleFilterDTO);
+        List<Article> articles = service.findArticlesByFilters(articleFilterDTO);
         return ResponseEntity.ok(articles);
     }
 
-//	@PostMapping(produces = APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	@ResponseStatus(code = HttpStatus.CREATED)
-//	public  ResponseEntity<?> create(@RequestBody Article article) {
-//		
-//		return null;
-//	}
-//
-//	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-//	public void update(@PathVariable Long id, @RequestBody Article article) {
-//		service.update(id, article);
-//	}
-//
-//	
-//	@DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-//	public void delete(@PathVariable Long id) {
-//		service.delete(id);
-//	}
-//	
+	@PostMapping()
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public  ResponseEntity<?> create(@RequestBody Article article) {
 
+		return null;
+	}
+
+	@PutMapping(value = "/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void update(@PathVariable Long id, @RequestBody Article article) {
+		service.updateArticle(id, article);
+	}
+
+
+	@DeleteMapping(value = "/{id}")
+	@ResponseBody
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public ResponseEntity<?> delete(@PathVariable Long id) {
+		service.deleteArticle(id);
+		return new ResponseEntity<>("Deleted article id: " + id, HttpStatus.NO_CONTENT);
+	}
 
 }
 

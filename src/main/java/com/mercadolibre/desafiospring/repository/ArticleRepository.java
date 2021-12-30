@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ArticleRepository {
@@ -27,6 +29,33 @@ public class ArticleRepository {
             e.printStackTrace();
         }
         return article;
+    }
+
+    public Article update(Long id, Article article) {
+        try {
+            if (!getArticleById(id).equals(null)){
+                article.setProductId(id);
+                int index = articles.indexOf(getArticleById(id));
+                articles.set(index, article);
+                fileUtils.writeFile(PATH, articles);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return article;
+    }
+
+    public void delete(Long id) {
+        try {
+            if (!getArticleById(id).equals(null)){
+                List<Article> collect = articles.stream().filter(a -> !a.getProductId().equals(id)).collect(Collectors.toList());
+
+                fileUtils.writeFile(PATH, collect);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Article> getArticles() {
