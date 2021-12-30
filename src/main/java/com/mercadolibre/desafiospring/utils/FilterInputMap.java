@@ -7,9 +7,9 @@ import java.util.function.BiFunction;
 import java.util.logging.Filter;
 
 @Component
-public class FilterSearchInputMap extends HashMap<String, BiFunction<Object, Object, Boolean>> {
+public class FilterInputMap extends HashMap<String, BiFunction<Object, Object, Boolean>> {
 
-    public FilterSearchInputMap() {
+    public FilterInputMap() {
         put("productId", FilterUtils::equalsLong);
         put("name", FilterUtils::containsStringIgnoreCase);
         put("category", FilterUtils::containsStringIgnoreCase);
