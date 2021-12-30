@@ -1,21 +1,17 @@
 package com.mercadolibre.desafiospring.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 @Component
 public class FilterUtils {
 
     @Autowired
-    FilterSearchInputMap filterSearchInputMap;
+    FilterInputMap filterInputMap;
 
     public static boolean containsStringIgnoreCase(Object argBase, Object argCompare) {
         String baseValue = (String) argBase;
@@ -57,10 +53,10 @@ public class FilterUtils {
         Map<String, Object> queryParamsAsMap = convertObjectToMap(inputQueryParams);
         Map<String, Object> baseObjValuesAsMap = convertObjectToMap(baseObjValues);
 
-       return queryParamsAsMap.entrySet()
+        return queryParamsAsMap.entrySet()
                 .stream()
                 .filter(entry -> Objects.nonNull(entry.getValue()))
-                .anyMatch(entry -> filterSearchInputMap.get(entry.getKey())
+                .anyMatch(entry -> filterInputMap.get(entry.getKey())
                         .apply(entry.getValue(), baseObjValuesAsMap.get(entry.getKey())));
     }
 
