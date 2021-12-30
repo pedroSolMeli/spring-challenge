@@ -14,8 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Order {
 
-    private long orderId;
-    List<Article> products;
-    BigDecimal total;
+    private List<Article> products;
+    private BigDecimal total;
 
 }
