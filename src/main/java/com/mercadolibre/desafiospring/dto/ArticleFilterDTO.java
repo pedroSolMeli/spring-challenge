@@ -1,30 +1,33 @@
-package com.mercadolibre.desafiospring.model;
+package com.mercadolibre.desafiospring.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Component
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
-public class Article {
+public class ArticleFilterDTO {
 
-    @JsonProperty("productId")
     private Long productId;
     private String name;
     private String category;
     private String brand;
     private BigDecimal price;
     private Integer quantity;
-    @JsonProperty("freeShipping")
     private Boolean freeShipping;
     private String prestige;
 
+    public boolean isNull(){
+        boolean isNull = productId == null  && name == null && category == null
+                && brand == null && price == null && quantity == null
+                && freeShipping == null && prestige == null;
+
+        return isNull;
+    }
+    
 }

@@ -15,7 +15,7 @@ public class FileUtils<T> {
         objectMapper.writeValue(new File(filePath), object);
     }
 
-    public static String GetJsonBodyMock(String filePath) throws IOException {
+    public static String GetFileToString(String filePath) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(filePath));
         return new String(bytes);
     }

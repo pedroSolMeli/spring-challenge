@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ArticleRepository {
@@ -29,9 +31,36 @@ public class ArticleRepository {
         return article;
     }
 
+    public Article update(Long id, Article article) {
+        try {
+            if (!getArticleById(id).equals(null)){
+                article.setProductId(id);
+                int index = articles.indexOf(getArticleById(id));
+                articles.set(index, article);
+                fileUtils.writeFile(PATH, articles);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return article;
+    }
+
+    public void delete(Long id) {
+        try {
+            if (!getArticleById(id).equals(null)){
+                List<Article> collect = articles.stream().filter(a -> !a.getProductId().equals(id)).collect(Collectors.toList());
+
+                fileUtils.writeFile(PATH, collect);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Article> getArticles() {
         try {
-            String jsonString = FileUtils.GetJsonBodyMock(PATH);
+            String jsonString = FileUtils.GetFileToString(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,10 +68,16 @@ public class ArticleRepository {
         return articles;
     }
 
-    public List<Article> getFilteredArticles() {
-        articles = getArticles();
-        List<Article> filteredArticles = articles;
-        return filteredArticles;
+    public Article getArticleById(Long productId){
+        Article article = null;
+        try {
+            String jsonString = FileUtils.GetFileToString(PATH);
+            articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
+            article = articles.stream().filter(a -> a.getProductId() == productId).findFirst().orElse(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return article;
     }
 
 }

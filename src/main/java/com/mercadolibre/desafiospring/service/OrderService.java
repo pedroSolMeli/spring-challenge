@@ -1,4 +1,4 @@
-package com.mercadolibre.desafiospring.services;
+package com.mercadolibre.desafiospring.service;
 
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.model.Order;
