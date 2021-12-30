@@ -23,6 +23,7 @@ public class ArticleRepository {
 
     public Article createArticle(Article article) {
         try {
+            articles = getArticles();
             articles.add(article);
             fileUtils.writeFile(PATH, articles);
         } catch (IOException e) {
@@ -61,7 +62,10 @@ public class ArticleRepository {
     public List<Article> getArticles() {
         try {
             String jsonString = FileUtils.GetFileToString(PATH);
-            articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
+            Article[] arrArticle = objectMapper.readValue(jsonString, Article[].class);
+            for (int i = 0; i < arrArticle.length; i++ ){
+                articles.add(arrArticle[i]);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

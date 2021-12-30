@@ -47,6 +47,9 @@ public class ArticleService {
         List<Article> listResults = repository.getArticles();
 
         if (articleFilterDTO.isNull()){
+//            if (order != null){
+//               return sortList(order, listResults);
+//            }
             return listResults;
         }
 
@@ -55,49 +58,71 @@ public class ArticleService {
                 .filter(article -> filterUtils.filterByQueryParams(articleFilterDTO, article))
                 .collect(Collectors.toList());
 
-        //TODO - verificar ordenaçao aqui
+//        if (order != null){
+//            return sortList(order, listResults);
+//        }
+
         return listFilterResults;
+
     }
 
     //Busca em ordem alfabetica
-    public List<Article> findAlphabetic(){
-        List<Article> article = repository.getArticles();
-        Collections.sort(article, Collator.getInstance());
+    public List<Article> findAlphabetic(List<Article> article){
+        article.sort(Comparator.comparing(Article::getName));
 
         return article;
     }
 
     //Busca ao contrario da ordem alfabetica
-    public List<Article> findAlphabeticReverse(){
-        List<Article> article = repository.getArticles();
-        Collections.sort(article, Collections.reverseOrder());
+    public List<Article> findAlphabeticReverse(List<Article> article){
+        article.sort(Comparator.comparing(Article::getName).reversed());
 
         return article;
     }
 
     //Busca o preço do maior para o menor
-    public List<Article> findPrice(){
-        List<Article> articlePrice = repository.getArticles();
+    public List<Article> findPrice(List<Article> article){
+        article.sort(Comparator.comparing(Article::getPrice));
 
-        articlePrice.sort(Comparator.comparing(Article::getPrice));
-
-        return articlePrice;
+        return article;
     }
 
     //Busca o preço do menor para o maior
-    public List<Article> findPriceReverse(){
-        List<Article> articlePrice = repository.getArticles();
+    public List<Article> findPriceReverse(List<Article> article){
+        article.sort(Comparator.comparing(Article::getPrice).reversed());
 
-        articlePrice.sort(Comparator.comparing(Article::getPrice).reversed());
-
-        return articlePrice;
+        return article;
     }
 
-    //Busca em ordem alfabetica
+    //Busca por id
     public Article findArticleById(Long productId){
         Article article = repository.getArticleById(productId);
 
         return article;
+    }
+
+    public List<Article> sortList(Integer paramOrder, List<Article> article){
+
+        List<Article> orderList;
+
+        switch(paramOrder) {
+            case 0:
+                orderList = findAlphabetic(article);
+                break;
+            case 1:
+                orderList = findAlphabeticReverse(article);
+                break;
+            case 2:
+                orderList = findPrice(article);
+                break;
+            case 3:
+                orderList = findPriceReverse(article);
+                break;
+            default:
+                orderList = article;
+        }
+
+        return orderList;
     }
 
 }
