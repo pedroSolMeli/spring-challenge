@@ -45,7 +45,7 @@ public class ArticleRepository {
         try {
             String jsonString = FileUtils.GetFileToString(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
-             article = articles.stream().filter(a -> a.getProductId() == productId).findFirst().orElse(null);
+            article = articles.stream().filter(a -> a.getProductId() == productId).findFirst().orElse(null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,4 +53,3 @@ public class ArticleRepository {
     }
 
 }
-
