@@ -11,15 +11,23 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FilterSearchInputDTO {
+public class ArticleFilterDTO {
 
-    private long productId;
+    private Long productId;
     private String name;
     private String category;
     private String brand;
     private BigDecimal price;
-    private int quantity;
-    private boolean freeShipping;
+    private Integer quantity;
+    private Boolean freeShipping;
     private String prestige;
+
+    public boolean isNull(){
+        boolean isNull = productId == null  && name == null && category == null
+                && brand == null && price == null && quantity == null
+                && freeShipping == null && prestige == null;
+
+        return isNull;
+    }
     
 }
