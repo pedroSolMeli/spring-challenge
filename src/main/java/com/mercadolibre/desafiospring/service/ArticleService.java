@@ -3,14 +3,13 @@ package com.mercadolibre.desafiospring.service;
 import com.mercadolibre.desafiospring.dto.ArticleFilterDTO;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.repository.ArticleRepository;
-import com.mercadolibre.desafiospring.utils.FilterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.Collator;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,9 +17,6 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository repository;
-
-    @Autowired
-    FilterUtils filterUtils;
 
     //Cria um article
     public Article createArticle(Article article){
@@ -43,27 +39,37 @@ public class ArticleService {
     }
 
     //Busca os Articles por filtros
-    public List<Article> findArticlesByFilters(ArticleFilterDTO articleFilterDTO) {
-        List<Article> listResults = repository.getArticles();
+    public LinkedHashSet<Article> findArticlesByFilters(ArticleFilterDTO articleFilterDTO, Integer order) {
+        List<Article> listArticles = repository.getArticles();
+
+        LinkedHashSet<Article> linkedArticle;
 
         if (articleFilterDTO.isNull()){
-//            if (order != null){
-//               return sortList(order, listResults);
-//            }
-            return listResults;
+            if (order != null){
+                linkedArticle = new LinkedHashSet<>(sortList(order, listArticles));
+            }else{
+                linkedArticle = new LinkedHashSet<>(listArticles);
+            }
+            return  linkedArticle;
         }
 
-        List<Article> listFilterResults = listResults
-                .stream()
-                .filter(article -> filterUtils.filterByQueryParams(articleFilterDTO, article))
-                .collect(Collectors.toList());
+        List<Article> collectArticle = listArticles.stream()
+                .filter(article -> articleFilterDTO.productIdIsNull() || article.getProductId().equals(articleFilterDTO.getProductId()))
+                .filter(article -> articleFilterDTO.nameIsNull() || article.getName().equals(articleFilterDTO.getName()))
+                .filter(article -> articleFilterDTO.categoryIsNull() || article.getCategory().equals(articleFilterDTO.getCategory()))
+                .filter(article -> articleFilterDTO.brandIsNull() || article.getBrand().equals(articleFilterDTO.getBrand()))
+                .filter(article -> articleFilterDTO.priceIsNull() || article.getPrice().equals(articleFilterDTO.getPrice()))
+                .filter(article -> articleFilterDTO.quantityNull() || article.getQuantity().equals(articleFilterDTO.getQuantity()))
+                .filter(article -> articleFilterDTO.freeShippingIsNull() || article.getFreeShipping().equals(articleFilterDTO.getFreeShipping()))
+                .filter(article -> articleFilterDTO.prestigeIsNull() || article.getPrestige().equals(articleFilterDTO.getPrestige())).collect(Collectors.toList());
 
-//        if (order != null){
-//            return sortList(order, listResults);
-//        }
+        if (order != null){
+            linkedArticle = new LinkedHashSet<>(sortList(order, collectArticle));
+        }else {
+            linkedArticle = new LinkedHashSet<>(collectArticle);
+        }
 
-        return listFilterResults;
-
+        return linkedArticle;
     }
 
     //Busca em ordem alfabetica
