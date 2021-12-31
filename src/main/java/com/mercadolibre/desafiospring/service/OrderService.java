@@ -4,7 +4,7 @@ import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.model.Order;
 import com.mercadolibre.desafiospring.repository.OrderRepository;
 
-import DTO.InputArticleDTO;
+import com.mercadolibre.desafiospring.dto.InputArticleDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
