@@ -1,4 +1,4 @@
-package DTO;
+package com.mercadolibre.desafiospring.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
