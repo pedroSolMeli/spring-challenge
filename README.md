@@ -1,11 +1,12 @@
 # spring-challenge
 ## Solução de desafio grupo03
 ### INTEGRANTES:
---
---
---
---
---
+* Emanuelle Besckow Figueiredo
+* Pedro Sol Barbosa Montes 
+* Ana Gabriela Siqueira Franco 
+* Douglas Santos Rodrigues 
+* Renan Santana Sousa
+
 --
 
 Projeto do desafio Java + Spring
