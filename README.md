@@ -72,3 +72,65 @@ quantidade)
 * Menor preço
 ** GET: /api/v1/articles?category=categoryName&freeShipping=true&order=3
 
+
+### Para acessar solicitação de compras:
+
+* Para solicitação de pedido: A solicitação receberá uma lista de produtos que será recuperada dos produtos já listados no estoque, utilizando o ID, e relacionando a quantidade solicitada para cálculo do valor total do pedido
+
+** POST: /api/v1/order
+* PAYLOAD: 
+
+[
+		{
+			"productId":2,
+			"name": "Mini Cama elastica",
+			"brand": "Starboard",
+			"quantity":6
+		},
+		{
+			"productId":5,
+			"name":"teste5",
+			"brand":"blablabdddla",
+			"quantity":5
+		}		
+	]
+
+* RESPONSE: 
+
+
+    {
+	"id": -3751098563661413935,
+	"products": [
+		{
+			"name": "Furadeira",
+			"category": "Ferramentas",
+			"brand": "Black & Decker",
+			"price": 500,
+			"quantity": 6,
+			"prestige": "****",
+			"productId": 2,
+			"freeShipping": true
+		},
+		{
+			"name": "Mini Cama elastica",
+			"category": "Esportes",
+			"brand": "Starboard",
+			"price": 183,
+			"quantity": 5,
+			"prestige": "*****",
+			"productId": 5,
+			"freeShipping": true
+		}
+	],
+	"total": 3915.0
+}
+
+### Para Acessar os pedidos/oreders disponiveis
+* lista todos os pedidos/orders :
+** GET: /api/v1/order
+
+
+OBSERVAÇÃO: A LISTA INICIAL DE PRODUTOS JÁ ESTÁ CADASTRADA
+
+
+
