@@ -4,7 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import com.mercadolibre.desafiospring.dto.ArticleFilterDTO;
-import com.mercadolibre.desafiospring.exceptions.ApiError;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ArticleController {
     ArticleService service;
 
     @GetMapping()
-    public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO,  @RequestParam(required = false) Integer order) throws ApiError {
+    public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO,  @RequestParam(required = false) Integer order) {
 		LinkedHashSet<Article> articles = service.findArticlesByFilters(articleFilterDTO, order);
         return ResponseEntity.ok(articles);
     }
