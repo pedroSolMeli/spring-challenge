@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.desafiospring.model.Order;
 import com.mercadolibre.desafiospring.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +26,8 @@ public class OrderRepository {
 			orders.add(order);
 			fileUtils.writeFile(PATH, orders);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new ResponseStatusException(
+					HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao criar Pedido");
 		}
 		return order;
 	}
@@ -40,7 +43,8 @@ public class OrderRepository {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new ResponseStatusException(
+					HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao listar Pedidos");
 		}
 		return result;
 

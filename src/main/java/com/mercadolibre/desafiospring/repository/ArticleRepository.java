@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.utils.FileUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +30,8 @@ public class ArticleRepository {
             articles.add(article);
             fileUtils.writeFile(PATH, articles);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao criar Produto");
         }
         return article;
     }
@@ -43,7 +46,8 @@ public class ArticleRepository {
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar Produto");
         }
         return article;
     }
@@ -56,7 +60,8 @@ public class ArticleRepository {
                 fileUtils.writeFile(PATH, collect);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao deletar Produto");
         }
     }
 
@@ -71,7 +76,8 @@ public class ArticleRepository {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao listar Produtos");
         }
         return result;
     }
@@ -83,7 +89,8 @@ public class ArticleRepository {
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
             article = articles.stream().filter(a -> a.getProductId() == productId).findFirst().orElse(null);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao recuperar Produto");
         }
         return article;
     }
