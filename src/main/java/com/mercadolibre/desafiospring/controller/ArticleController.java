@@ -1,5 +1,6 @@
 package com.mercadolibre.desafiospring.controller;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import com.mercadolibre.desafiospring.dto.ArticleFilterDTO;
@@ -18,8 +19,8 @@ public class ArticleController {
     ArticleService service;
 
     @GetMapping()
-    public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO) {
-        List<Article> articles = service.findArticlesByFilters(articleFilterDTO);
+    public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO,  @RequestParam(required = false) Integer order){
+		LinkedHashSet<Article> articles = service.findArticlesByFilters(articleFilterDTO, order);
         return ResponseEntity.ok(articles);
     }
 
