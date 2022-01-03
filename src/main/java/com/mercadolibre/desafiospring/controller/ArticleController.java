@@ -19,7 +19,7 @@ public class ArticleController {
     ArticleService service;
 
     @GetMapping()
-    public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO,  @RequestParam(required = false) Integer order){
+    public ResponseEntity<?> findAll(ArticleFilterDTO articleFilterDTO,  @RequestParam(required = false) Integer order) {
 		LinkedHashSet<Article> articles = service.findArticlesByFilters(articleFilterDTO, order);
         return ResponseEntity.ok(articles);
     }
