@@ -14,20 +14,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputArticleDTO {
+public class InputArticleToShopDTO {
 	private long productId;
 	private String name;
 	private String brand;
 	// quantidade para reqiuisição de compra, não estoque
 	private int quantity;
 
-	public static Article converte(InputArticleDTO dto) {
+	public static Article converte(InputArticleToShopDTO dto) {
 		Article article = Article.builder().brand(dto.getBrand()).name(dto.getBrand()).productId(dto.getProductId())
 				.build();
 		return article;
 	}
 
-	public static List<Article> converteList(List<InputArticleDTO> articles) {
+	public static List<Article> converteList(List<InputArticleToShopDTO> articles) {
 		return articles.stream().map(u -> converte(u)).collect(Collectors.toList());
 	}
 

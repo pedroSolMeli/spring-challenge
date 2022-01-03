@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.utils.FileUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +30,8 @@ public class ArticleRepository {
             articles.add(article);
             fileUtils.writeFile(PATH, articles);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao criar Produto");
         }
         return article;
     }
@@ -43,7 +46,8 @@ public class ArticleRepository {
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar Produto");
         }
         return article;
     }
@@ -52,11 +56,11 @@ public class ArticleRepository {
         try {
             if (!getArticleById(id).equals(null)) {
                 List<Article> collect = articles.stream().filter(a -> !a.getProductId().equals(id)).collect(Collectors.toList());
-
                 fileUtils.writeFile(PATH, collect);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao deletar Produto");
         }
     }
 
@@ -71,7 +75,8 @@ public class ArticleRepository {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao acessar arquivo");
         }
         return result;
     }
@@ -82,8 +87,13 @@ public class ArticleRepository {
             String jsonString = FileUtils.GetFileToString(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
             article = articles.stream().filter(a -> a.getProductId() == productId).findFirst().orElse(null);
+            if (article.equals(null)) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Produto não encontrado");
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao recuperar Produto");
         }
         return article;
     }
