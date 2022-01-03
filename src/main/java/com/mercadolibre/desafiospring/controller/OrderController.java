@@ -1,9 +1,8 @@
 package com.mercadolibre.desafiospring.controller;
 
+import com.mercadolibre.desafiospring.dto.InputArticleToShopDTO;
 import com.mercadolibre.desafiospring.model.Order;
 import com.mercadolibre.desafiospring.service.OrderService;
-
-import DTO.InputArticleDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class OrderController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<?> create(@RequestBody List<InputArticleDTO> listOrder) {
+	public ResponseEntity<?> create(@RequestBody List<InputArticleToShopDTO> listOrder) {
 		Order order = service.createOrder(listOrder);
 		return ResponseEntity.ok(order);
 	}
