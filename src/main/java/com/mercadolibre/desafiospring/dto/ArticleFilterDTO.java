@@ -29,5 +29,45 @@ public class ArticleFilterDTO {
 
         return isNull;
     }
-    
+
+    public boolean productIdIsNull(){
+        boolean isNull = productId == null;
+        return isNull;
+    }
+
+    public boolean nameIsNull(){
+        boolean isNull = name == null;
+        return isNull;
+    }
+
+    public boolean categoryIsNull(){
+        boolean isNull = category == null;
+        return isNull;
+    }
+
+    public boolean brandIsNull(){
+        boolean isNull = brand == null;
+        return isNull;
+    }
+
+    public boolean priceIsNull(){
+        boolean isNull = price == null;
+        return isNull;
+    }
+
+    public boolean quantityNull(){
+        boolean isNull = quantity == null;
+        return isNull;
+    }
+
+    public boolean freeShippingIsNull(){
+        boolean isNull = freeShipping == null;
+        return isNull;
+    }
+
+    public boolean prestigeIsNull(){
+        boolean isNull = prestige == null;
+        return isNull;
+    }
+
 }
