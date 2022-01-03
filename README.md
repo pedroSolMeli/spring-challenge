@@ -6,6 +6,7 @@
 * Ana Gabriela Siqueira Franco 
 * Douglas Santos Rodrigues 
 * Renan Santana Sousa
+* Willy de Jesus Passos
 
 --
 
