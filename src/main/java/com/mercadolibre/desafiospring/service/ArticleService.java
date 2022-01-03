@@ -1,10 +1,13 @@
 package com.mercadolibre.desafiospring.service;
 
 import com.mercadolibre.desafiospring.dto.ArticleFilterDTO;
+import com.mercadolibre.desafiospring.exceptions.ApiError;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -38,7 +41,7 @@ public class ArticleService {
     }
 
     //Busca os Articles por filtros
-    public LinkedHashSet<Article> findArticlesByFilters(ArticleFilterDTO articleFilterDTO, Integer order) {
+    public LinkedHashSet<Article> findArticlesByFilters(ArticleFilterDTO articleFilterDTO, Integer order) throws ApiError {
         List<Article> listArticles = repository.getArticles();
 
         LinkedHashSet<Article> linkedArticle;
@@ -60,6 +63,9 @@ public class ArticleService {
                 .filter(article -> articleFilterDTO.freeShippingIsNull() || article.getFreeShipping().equals(articleFilterDTO.getFreeShipping()))
                 .filter(article -> articleFilterDTO.prestigeIsNull() || article.getPrestige().equals(articleFilterDTO.getPrestige())).collect(Collectors.toList());
 
+       if (collectArticle.size() == 0){
+           throw new ApiError("Nenhum artigo encontrado com o filtro informado", HttpStatus.NOT_FOUND.value());
+       }
         linkedArticle = order != null ? new LinkedHashSet<>(sortList(order, collectArticle)) : new LinkedHashSet<>(collectArticle);
 
         return linkedArticle;
