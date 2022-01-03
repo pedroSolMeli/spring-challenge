@@ -1,4 +1,4 @@
-package DTO;
+package com.mercadolibre.desafiospring.dto;
 
 import java.math.BigDecimal;
 import java.util.List;

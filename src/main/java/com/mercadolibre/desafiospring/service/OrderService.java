@@ -1,10 +1,9 @@
 package com.mercadolibre.desafiospring.service;
 
+import com.mercadolibre.desafiospring.dto.InputArticleToShopDTO;
 import com.mercadolibre.desafiospring.model.Article;
 import com.mercadolibre.desafiospring.model.Order;
 import com.mercadolibre.desafiospring.repository.OrderRepository;
-
-import DTO.InputArticleDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +23,9 @@ public class OrderService {
 		return repository.getOrders();
 	}
 
-	public Order createOrder(List<InputArticleDTO> listOrder) {
+	public Order createOrder(List<InputArticleToShopDTO> listOrder) {
 		List<Article> articleList = new ArrayList<Article>();
-		for (InputArticleDTO inputArticleDTO : listOrder) {
+		for (InputArticleToShopDTO inputArticleDTO : listOrder) {
 			Article product = articleService.findArticleById(inputArticleDTO.getProductId());
 			product.setQuantity(inputArticleDTO.getQuantity());
 			articleList.add(product);
