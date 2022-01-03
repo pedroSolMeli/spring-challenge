@@ -118,10 +118,10 @@ public class ArticleService {
                 orderList = findAlphabeticReverse(article);
                 break;
             case 2:
-                orderList = findPrice(article);
+                orderList = findPriceReverse(article);
                 break;
             case 3:
-                orderList = findPriceReverse(article);
+                orderList = findPrice(article);
                 break;
             default:
                 orderList = article;
