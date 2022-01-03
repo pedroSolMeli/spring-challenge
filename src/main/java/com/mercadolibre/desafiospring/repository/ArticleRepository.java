@@ -56,7 +56,6 @@ public class ArticleRepository {
         try {
             if (!getArticleById(id).equals(null)) {
                 List<Article> collect = articles.stream().filter(a -> !a.getProductId().equals(id)).collect(Collectors.toList());
-
                 fileUtils.writeFile(PATH, collect);
             }
         } catch (IOException e) {
@@ -77,7 +76,7 @@ public class ArticleRepository {
 
         } catch (IOException e) {
             throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao listar Produtos");
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao acessar arquivo");
         }
         return result;
     }
@@ -88,6 +87,10 @@ public class ArticleRepository {
             String jsonString = FileUtils.GetFileToString(PATH);
             articles = Arrays.asList(objectMapper.readValue(jsonString, Article[].class));
             article = articles.stream().filter(a -> a.getProductId() == productId).findFirst().orElse(null);
+            if (article.equals(null)) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Produto não encontrado");
+            }
         } catch (IOException e) {
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao recuperar Produto");
